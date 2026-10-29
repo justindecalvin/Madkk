@@ -233,8 +233,8 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToWebsite }) => 
   return (
     <div className="h-screen bg-[#FDFBF7] flex flex-col font-['Nunito',sans-serif] overflow-hidden">
       {/* Top Header */}
-      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-stone-200 px-2.5 sm:px-6 lg:px-8 py-2 sm:py-3.5 flex items-center justify-between shadow-xs shrink-0 gap-2 min-w-0">
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-stone-200 px-2 sm:px-6 lg:px-8 py-2 sm:py-3.5 flex items-center justify-between shadow-xs shrink-0 gap-1.5 sm:gap-2 min-w-0 max-w-full overflow-hidden">
+        <div className="flex items-center gap-1.5 sm:gap-3 min-w-0 shrink">
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -244,27 +244,27 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToWebsite }) => 
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
             <div className="shrink-0">
               <SchoolLogo size="sm" showText={false} />
             </div>
             <div className="min-w-0">
-              <div className="text-xs sm:text-sm font-black text-stone-900 leading-tight truncate max-w-[130px] xs:max-w-[180px] sm:max-w-xs md:max-w-none">
+              <div className="text-xs sm:text-sm font-black text-stone-900 leading-tight truncate max-w-[110px] xs:max-w-[160px] sm:max-w-xs md:max-w-none">
                 {schoolInfo.name} Administration
               </div>
-              <div className="text-[10px] sm:text-[11px] font-bold text-amber-700 truncate hidden xs:block">
+              <div className="text-[9px] sm:text-[11px] font-bold text-amber-700 truncate hidden xs:block">
                 {termResumptionConfig?.termName || schoolInfo.activeTerm} • {termResumptionConfig?.session || schoolInfo.activeSession}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0 flex-nowrap">
           {/* Multi-Device Cloud Sync Button */}
           <button
             type="button"
             onClick={() => setShowCloudSyncModal(true)}
-            className={`inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 text-xs font-black rounded-xl transition-all cursor-pointer shadow-2xs border shrink-0 ${
+            className={`inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-3 py-1.5 text-xs font-black rounded-xl transition-all cursor-pointer shadow-2xs border shrink-0 ${
               isRemoteEnabled()
                 ? 'bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100'
                 : 'bg-amber-100 text-amber-950 border-amber-300 hover:bg-amber-200 animate-pulse'
@@ -275,7 +275,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToWebsite }) => 
             <span className="hidden sm:inline">
               {isRemoteEnabled() ? 'Cloud Synced' : 'Multi-Device Sync'}
             </span>
-            <span className="sm:hidden text-[11px]">
+            <span className="sm:hidden text-[10px] font-black">
               {isRemoteEnabled() ? 'Synced' : 'Sync'}
             </span>
           </button>
@@ -284,26 +284,26 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onBackToWebsite }) => 
           <button
             type="button"
             onClick={() => setShowQuickAddModal(true)}
-            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-black rounded-xl bg-red-600 hover:bg-red-700 text-white transition-all cursor-pointer shadow-xs shrink-0"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 text-xs font-black rounded-xl bg-red-600 hover:bg-red-700 text-white transition-all cursor-pointer shadow-xs shrink-0"
             title="Quickly create scholar in Supabase database"
             id="btn-header-quick-add-student"
           >
             <Users className="w-3.5 h-3.5 shrink-0" />
             <span className="hidden sm:inline">+ Quick Add Scholar</span>
-            <span className="sm:hidden text-[11px]">+ Scholar</span>
+            <span className="sm:hidden text-[10px] font-black">+ Scholar</span>
           </button>
 
           {/* View Enrolled Student Roster & Fast Sign-In */}
           <button
             type="button"
             onClick={() => setShowRosterModal(true)}
-            className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 text-xs font-black rounded-xl bg-gradient-to-r from-red-800 via-red-900 to-amber-900 hover:from-red-900 hover:to-amber-950 text-white transition-all cursor-pointer shadow-xs border border-amber-500/40 shrink-0"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-3 py-1.5 text-xs font-black rounded-xl bg-gradient-to-r from-red-800 via-red-900 to-amber-900 hover:from-red-900 hover:to-amber-950 text-white transition-all cursor-pointer shadow-xs border border-amber-500/40 shrink-0"
             title="View Enrolled Student Roster & Fast Sign-In Directory"
             id="btn-admin-student-roster"
           >
             <GraduationCap className="w-3.5 h-3.5 text-amber-300 shrink-0" />
             <span className="hidden md:inline">Student Roster</span>
-            <span className="text-[10px] font-bold bg-amber-400 text-neutral-950 px-1.5 py-0.2 rounded-full">
+            <span className="text-[10px] font-bold bg-amber-400 text-neutral-950 px-1.5 py-0.2 rounded-full leading-none">
               {students.length}
             </span>
           </button>

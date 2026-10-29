@@ -1242,13 +1242,29 @@ export const pushAllDataToSupabase = async (
 
     let totalWritten = 0;
 
+    // Ensure active admin remote session before writing state collections
+    if (!sessionToken) {
+      await ensureAdminRemoteSession();
+    }
+
     // 3. High-priority upload: Push stanbax_students FIRST as its own dedicated call
     const studentsData = itemsMap.get('stanbax_students');
     if (studentsData !== undefined) {
       try {
-        const { error: stuError } = await supabase.rpc('put_states', {
+        let { error: stuError } = await supabase.rpc('put_states', {
           p_items: [{ key: 'stanbax_students', data: studentsData }]
         });
+        if (stuError) {
+          console.warn('[Supabase Migration] Initial student upload note:', stuError.message);
+          setDbSession(null);
+          const reauthed = await ensureAdminRemoteSession();
+          if (reauthed) {
+            const retryRes = await supabase.rpc('put_states', {
+              p_items: [{ key: 'stanbax_students', data: studentsData }]
+            });
+            stuError = retryRes.error;
+          }
+        }
         if (stuError) {
           console.warn('[Supabase Migration] Dedicated student upload note:', stuError.message);
         } else {
